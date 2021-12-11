@@ -17,9 +17,6 @@ dependencies:
   fluttertoast:
   image_picker: 
   firebase_storage: 
-  firebase_core_web:
-  firebase_auth_web:
-  cloud_firestore_web:
   flutter_staggered_grid_view: 
   provider: 
   path_provider: 
