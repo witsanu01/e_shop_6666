@@ -1,4 +1,4 @@
-package com.muhammadali.e_shop
+package com.cafe82.eshop
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_shop/Counters/BookQuantity.dart';
+import 'package:e_shop/Counters/ItemQuantity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +24,21 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Cafe82',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.green,
-        ),
-        home: SplashScreen());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => CartItemCounter()),
+        ChangeNotifierProvider(create: (c) => CartItemCounter()),
+        ChangeNotifierProvider(create: (c) => AddressChanger()),
+        ChangeNotifierProvider(create: (c) => TotalAmount()),
+      ],
+      child: MaterialApp(
+          title: 'Cafe82',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryColor: Colors.green,
+          ),
+          home: SplashScreen()),
+    );
   }
 }
 
@@ -79,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20.0,
             ),
             Text(
-              "Cafe82 Lampang",
+              "82cafe Lampang",
               style: TextStyle(color: Colors.black),
             ),
           ],
