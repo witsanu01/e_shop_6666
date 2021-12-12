@@ -88,7 +88,10 @@ class _StoreHomeState extends State<StoreHome> {
         drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
-            SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: SearchBoxDelegate(),
+            ),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
                   .collection("Item")
@@ -124,6 +127,14 @@ class _StoreHomeState extends State<StoreHome> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
+    onTap: () {
+      Route route = MaterialPageRoute(
+        builder: (c) => ProductPage(
+          itemModel: model,
+        ),
+      );
+      Navigator.pushReplacement(context, route);
+    },
     splashColor: Colors.blue,
     child: Padding(
       padding: EdgeInsets.all(6.0),
@@ -134,18 +145,18 @@ Widget sourceInfo(ItemModel model, BuildContext context,
           children: [
             Image.network(
               model.thumbnailUrl,
-              width: 140.0,
-              height: 140.0,
+              width: 150.0,
+              height: 150.0,
             ),
             SizedBox(
-              width: 4.0,
+              width: 9.0,
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 15.0,
+                    height: 5.0,
                   ),
                   Container(
                     child: Row(
@@ -154,7 +165,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                         Expanded(
                             child: Text(
                           model.title,
-                          style: TextStyle(color: Colors.blue, fontSize: 14.0),
+                          style: TextStyle(color: Colors.blue, fontSize: 15.0),
                         )),
                       ],
                     ),
@@ -175,7 +186,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                     ),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
                   Row(
                     children: [
@@ -261,7 +272,9 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       ),
                     ],
                   ),
-                  Flexible(child: Container()),
+                  Flexible(
+                    child: Container(),
+                  ),
                 ],
               ),
             ),
