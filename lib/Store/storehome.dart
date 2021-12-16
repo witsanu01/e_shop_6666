@@ -127,19 +127,19 @@ class _StoreHomeState extends State<StoreHome> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
-    onTap: () {
-      Route route = MaterialPageRoute(
-        builder: (c) => ProductPage(
-          itemModel: model,
-        ),
-      );
-      Navigator.pushReplacement(context, route);
-    },
+    // onTap: () {
+    //   Route route = MaterialPageRoute(
+    //     builder: (c) => ProductPage(
+    //       itemModel: model,
+    //     ),
+    //   );
+    //   Navigator.pushReplacement(context, route);
+    // },
     splashColor: Colors.blue,
     child: Padding(
-      padding: EdgeInsets.all(6.0),
+      padding: EdgeInsets.all(15),
       child: Container(
-        height: 100.0,
+        height: 150.0,
         width: width,
         child: Row(
           children: [
@@ -149,14 +149,14 @@ Widget sourceInfo(ItemModel model, BuildContext context,
               height: 150.0,
             ),
             SizedBox(
-              width: 9.0,
+              width: 5,
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 5.0,
+                    height: 2,
                   ),
                   Container(
                     child: Row(
@@ -231,14 +231,14 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 Text(
                                   "Original Price ฿",
                                   style: TextStyle(
-                                      fontSize: 14.0,
+                                      fontSize: 10.0,
                                       color: Colors.grey,
                                       decoration: TextDecoration.lineThrough),
                                 ),
                                 Text(
                                   (model.price + model.price).toString(),
                                   style: TextStyle(
-                                    fontSize: 15.0,
+                                    fontSize: 10.0,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),
@@ -253,7 +253,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 Text(
                                   "New Price: ",
                                   style: TextStyle(
-                                      fontSize: 14.0, color: Colors.grey),
+                                      fontSize: 10.0, color: Colors.grey),
                                 ),
                                 Text(
                                   " ฿",
@@ -263,7 +263,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 Text(
                                   (model.price).toString(),
                                   style: TextStyle(
-                                      fontSize: 15.0, color: Colors.grey),
+                                      fontSize: 10.0, color: Colors.grey),
                                 ),
                               ],
                             ),
@@ -275,6 +275,29 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                   Flexible(
                     child: Container(),
                   ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: removeCartFunction == null
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.add_shopping_cart,
+                              color: Colors.greenAccent,
+                            ),
+                            onPressed: () {
+                              checkItemInCart(model.shortInfo, context);
+                            },
+                          )
+                        : IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                          ),
+                  ),
+                  Divider(
+                    height: 5.0,
+                    color: Colors.greenAccent,
+                  )
                 ],
               ),
             ),
@@ -289,4 +312,26 @@ Widget card({Color primaryColor = Colors.greenAccent, String imgPath}) {
   return Container();
 }
 
-void checkItemInCart(String productID, BuildContext context) {}
+void checkItemInCart(String shortInfoAsID, BuildContext context) {
+  EcommerceApp.sharedPreferences
+          .getStringList(EcommerceApp.userCartList)
+          .contains(shortInfoAsID)
+      ? Fluttertoast.showToast(msg: "Item is already in Cart")
+      : addItemToCart(shortInfoAsID, context);
+}
+
+addItemToCart(String shortInfoAsID, BuildContext context) {
+  List tempCartList =
+      EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+  tempCartList.add(shortInfoAsID);
+  EcommerceApp.firestore
+      .collection(EcommerceApp.collectionUser)
+      .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+      .updateData({EcommerceApp.userCartList: tempCartList}).then((v) {
+    Fluttertoast.showToast(msg: "Item Added to Cart Successfully");
+
+    EcommerceApp.sharedPreferences
+        .setStringList(EcommerceApp.userCartList, tempCartList);
+    Provider.of<CartItemCounter>(context, listen: false).displayResult();
+  });
+}
