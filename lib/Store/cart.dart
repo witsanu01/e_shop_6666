@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Address/address.dart';
+import 'package:e_shop/Widgets/customAppBar.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/Models/item.dart';
 import 'package:e_shop/Counters/cartitemcounter.dart';
 import 'package:e_shop/Counters/totalMoney.dart';
+import 'package:e_shop/Widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:e_shop/Store/storehome.dart';
@@ -17,10 +19,103 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  double totalAmount;
 
   @override
+  void initState() {
+    super.initState();
+
+    totalAmount = 0;
+    Provider.of<TotalAmount>(context, listen: false).dispaly(0);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (EcommerceApp.sharedPreferences
+                  .getStringList(EcommerceApp.userCartList)
+                  .length ==
+              1) {
+            Fluttertoast.showToast(msg: "your cart is emtry");
+          } else {
+            Route route = MaterialPageRoute(
+                builder: (c) => Address(totalAmount: totalAmount));
+          }
+        },
+      ),
+      appBar: MyAppBar(),
+      drawer: MyDrawer(),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Consumer2<TotalAmount, CartItemCounter>(
+              builder: (context, amountProvider, CartProvider, c) {
+                return Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                    child: CartProvider.count == 0
+                        ? Container()
+                        : Text(
+                            "Total Price ฿ ${amountProvider.totalAmount.toString()}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500),
+                          ),
+                  ),
+                );
+              },
+            ),
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: EcommerceApp.firestore
+                .collection("Item")
+                .where("shortInfo",
+                    whereIn: EcommerceApp.sharedPreferences
+                        .getStringList(EcommerceApp.userCartList))
+                .snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: circularProgress(),
+                      ),
+                    )
+                  : snapshot.data.documents.length == 0
+                      ? beginbuildingCart()
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              ItemModel model = ItemModel.fromJson(
+                                  snapshot.data.documents[index].data);
+                              if (index == 0) {
+                                totalAmount = 0;
+                                totalAmount = model.price + totalAmount;
+                              } else {
+                                totalAmount = model.price + totalAmount;
+                              }
+                              if (snapshot.data.documents.length - 1 == index) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((t) {
+                                  Provider.of<TotalAmount>(context,
+                                          listen: false)
+                                      .dispaly(totalAmount);
+                                });
+                              }
+                              return sourceInfo(model, context,
+                                  removeCartFunction: () =>
+                                      removeItemFromUserCart(model.shortInfo));
+                            },
+                          ),
+                        );
+            },
+          ),
+        ],
+      ),
     );
   }
+
+  beginbuildingCart() {}
+  removeItemFromUserCart(String shortInfoAsId) {}
 }

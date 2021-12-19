@@ -48,8 +48,7 @@ class _StoreHomeState extends State<StoreHome> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => StoreHome());
+                    Route route = MaterialPageRoute(builder: (c) => CartPage());
                     Navigator.pushReplacement(context, route);
                   },
                   icon: Icon(Icons.shopping_cart, color: Colors.white),
