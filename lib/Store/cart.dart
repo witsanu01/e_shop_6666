@@ -116,6 +116,44 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
-  beginbuildingCart() {}
-  removeItemFromUserCart(String shortInfoAsId) {}
+  beginbuildingCart() {
+    return SliverToBoxAdapter(
+      child: Card(
+        color: Theme.of(context).primaryColor.withOpacity(0.5),
+        child: Container(
+          height: 100.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.insert_emoticon,
+                color: Colors.white,
+              ),
+              Text("Cart is empty"),
+              Text("Start add item to your Cart"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  removeItemFromUserCart(String shortInfoAsId) {
+    List tempCartList =
+        EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
+    tempCartList.remove(shortInfoAsId);
+    EcommerceApp.firestore
+        .collection(EcommerceApp.collectionUser)
+        .document(
+            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
+        .updateData({EcommerceApp.userCartList: tempCartList}).then((v) {
+      Fluttertoast.showToast(msg: "Item removed to Cart Successfully");
+
+      EcommerceApp.sharedPreferences
+          .setStringList(EcommerceApp.userCartList, tempCartList);
+      Provider.of<CartItemCounter>(context, listen: false).displayResult();
+
+      totalAmount = 0;
+    });
+  }
 }

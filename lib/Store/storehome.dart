@@ -68,7 +68,12 @@ class _StoreHomeState extends State<StoreHome> {
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
-                              counter.count.toString(),
+                              (EcommerceApp.sharedPreferences
+                                          .getStringList(
+                                              EcommerceApp.userCartList)
+                                          .length -
+                                      1)
+                                  .toString(),
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12.0,
@@ -291,6 +296,12 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                               Icons.delete,
                               color: Colors.red,
                             ),
+                            onPressed: () {
+                              removeCartFunction();
+                              Route route = MaterialPageRoute(
+                                  builder: (c) => StoreHome());
+                              Navigator.pushReplacement(context, route);
+                            },
                           ),
                   ),
                   Divider(
