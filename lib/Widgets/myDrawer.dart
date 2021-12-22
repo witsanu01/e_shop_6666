@@ -155,14 +155,10 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.black,
                   ),
                   title: Text(
-                    "add new Address",
+                    "Promotion",
                     style: TextStyle(color: Colors.black),
                   ),
-                  onTap: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => AddAddress());
-                    Navigator.pushReplacement(context, route);
-                  },
+                  onTap: () {},
                 ),
                 Divider(
                   height: 10.0,
