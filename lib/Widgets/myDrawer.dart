@@ -91,20 +91,6 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                   thickness: 6.0,
                 ),
-                ListTile(
-                  leading: Icon(
-                    Icons.add_business_rounded,
-                    color: Colors.black,
-                  ),
-                  title: Text(
-                    "My Orders",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {
-                    Route route = MaterialPageRoute(builder: (c) => MyOrders());
-                    Navigator.pushReplacement(context, route);
-                  },
-                ),
                 Divider(
                   height: 10.0,
                   color: Colors.white,

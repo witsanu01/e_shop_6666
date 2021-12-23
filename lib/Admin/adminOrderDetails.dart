@@ -9,47 +9,40 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class AdminOrderDetails extends StatelessWidget {
+  final String itemCount;
+  final String orderID;
+  final String orderby;
 
+  AdminOrderDetails({Key key, this.itemCount, this.orderID, this.orderby})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-    return SafeArea(
-    );
+    return SafeArea();
   }
 }
 
 class StatusBanner extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-    );
+    return Container();
   }
 }
 
 class PaymentDetailsCard extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-    );
+    return Container();
   }
 }
 
 class ShippingDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-    );
+    return Column();
   }
-
 }
 
-
 class KeyText extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Text("");
