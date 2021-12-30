@@ -29,10 +29,10 @@ class _StoreHomeState extends State<StoreHome> {
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blueAccent, Colors.black12],
+                colors: [Colors.blue],
                 begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
-                stops: [0.0, 0.0],
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
             ),
@@ -47,11 +47,14 @@ class _StoreHomeState extends State<StoreHome> {
             Stack(
               children: [
                 IconButton(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                  ),
                   onPressed: () {
                     Route route = MaterialPageRoute(builder: (c) => CartPage());
                     Navigator.pushReplacement(context, route);
                   },
-                  icon: Icon(Icons.shopping_cart, color: Colors.white),
                 ),
                 Positioned(
                   child: Stack(
@@ -64,7 +67,7 @@ class _StoreHomeState extends State<StoreHome> {
                       Positioned(
                         top: 3.0,
                         bottom: 4.0,
-                        left: 3.0,
+                        left: 4.0,
                         child: Consumer<CartItemCounter>(
                           builder: (context, counter, _) {
                             return Text(
@@ -77,30 +80,27 @@ class _StoreHomeState extends State<StoreHome> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 12.0,
-                                  fontWeight: FontWeight.w500),
+                                  fontWeight: FontWeight.bold),
                             );
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         drawer: MyDrawer(),
         body: CustomScrollView(
           slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SearchBoxDelegate(),
-            ),
+            SliverPersistentHeader(pinned: true, delegate: SearchBoxDelegate()),
             StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance
                   .collection("Item")
                   .limit(15)
-                  .orderBy("publishedData", descending: true)
+                  .orderBy("publishedDate", descending: true)
                   .snapshots(),
               builder: (context, dataSnapshot) {
                 return !dataSnapshot.hasData
@@ -131,46 +131,45 @@ class _StoreHomeState extends State<StoreHome> {
 Widget sourceInfo(ItemModel model, BuildContext context,
     {Color background, removeCartFunction}) {
   return InkWell(
-    // onTap: () {
-    //   Route route = MaterialPageRoute(
-    //     builder: (c) => ProductPage(
-    //       itemModel: model,
-    //     ),
-    //   );
-    //   Navigator.pushReplacement(context, route);
-    // },
-    splashColor: Colors.blue,
+    onTap: () {
+      Route route =
+          MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
+      Navigator.pushReplacement(context, route);
+    },
+    splashColor: Colors.pink,
     child: Padding(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(6.0),
       child: Container(
-        height: 150.0,
+        height: 190.0,
         width: width,
         child: Row(
           children: [
             Image.network(
               model.thumbnailUrl,
-              width: 150.0,
-              height: 150.0,
+              width: 140.0,
+              height: 140.0,
             ),
             SizedBox(
-              width: 5,
+              width: 4.0,
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 2,
+                    height: 15.0,
                   ),
                   Container(
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                            child: Text(
-                          model.title,
-                          style: TextStyle(color: Colors.blue, fontSize: 15.0),
-                        )),
+                          child: Text(
+                            model.title,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 14.0),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -182,21 +181,25 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                            child: Text(
-                          model.shortInfo,
-                          style: TextStyle(color: Colors.black, fontSize: 14.0),
-                        )),
+                          child: Text(
+                            model.shortInfo,
+                            style: TextStyle(
+                                color: Colors.black54, fontSize: 12.0),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   Row(
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                            shape: BoxShape.rectangle, color: Colors.blue),
+                          shape: BoxShape.rectangle,
+                          color: Colors.green,
+                        ),
                         alignment: Alignment.topLeft,
                         width: 40.0,
                         height: 43.0,
@@ -212,7 +215,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                     fontWeight: FontWeight.normal),
                               ),
                               Text(
-                                "off",
+                                "OFF",
                                 style: TextStyle(
                                     fontSize: 12.0,
                                     color: Colors.white,
@@ -233,16 +236,17 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             child: Row(
                               children: [
                                 Text(
-                                  "Original Price ฿",
+                                  r"Origional Price: ฿ ",
                                   style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: Colors.grey,
-                                      decoration: TextDecoration.lineThrough),
+                                    fontSize: 14.0,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
                                 ),
                                 Text(
                                   (model.price + model.price).toString(),
                                   style: TextStyle(
-                                    fontSize: 10.0,
+                                    fontSize: 15.0,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
                                   ),
@@ -257,35 +261,42 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                 Text(
                                   "New Price: ",
                                   style: TextStyle(
-                                      fontSize: 10.0, color: Colors.grey),
+                                    fontSize: 14.0,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                                 Text(
-                                  " ฿",
+                                  "฿ ",
                                   style: TextStyle(
                                       color: Colors.red, fontSize: 16.0),
                                 ),
                                 Text(
                                   (model.price).toString(),
                                   style: TextStyle(
-                                      fontSize: 10.0, color: Colors.grey),
+                                    fontSize: 15.0,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ],
                   ),
+
                   Flexible(
                     child: Container(),
                   ),
+
+                  //to implement the cart item aad/remove feature
                   Align(
                     alignment: Alignment.centerRight,
                     child: removeCartFunction == null
                         ? IconButton(
                             icon: Icon(
                               Icons.add_shopping_cart,
-                              color: Colors.greenAccent,
+                              color: Colors.green,
                             ),
                             onPressed: () {
                               checkItemInCart(model.shortInfo, context);
@@ -294,20 +305,21 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                         : IconButton(
                             icon: Icon(
                               Icons.delete,
-                              color: Colors.red,
+                              color: Colors.pinkAccent,
                             ),
                             onPressed: () {
                               removeCartFunction();
-                              Route route =
-                                  MaterialPageRoute(builder: (c) => CartPage());
+                              Route route = MaterialPageRoute(
+                                  builder: (c) => StoreHome());
                               Navigator.pushReplacement(context, route);
                             },
                           ),
                   ),
+
                   Divider(
                     height: 5.0,
-                    color: Colors.greenAccent,
-                  )
+                    color: Colors.pink,
+                  ),
                 ],
               ),
             ),
@@ -318,7 +330,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
   );
 }
 
-Widget card({Color primaryColor = Colors.greenAccent, String imgPath}) {
+Widget card({Color primaryColor = Colors.redAccent, String imgPath}) {
   return Container(
     height: 150.0,
     width: width * .34,
@@ -328,7 +340,7 @@ Widget card({Color primaryColor = Colors.greenAccent, String imgPath}) {
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
         boxShadow: <BoxShadow>[
           BoxShadow(
-              offset: Offset(5, 0), blurRadius: 10.0, color: Colors.grey[100])
+              offset: Offset(0, 5), blurRadius: 10.0, color: Colors.grey[200]),
         ]),
     child: ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -346,7 +358,7 @@ void checkItemInCart(String shortInfoAsID, BuildContext context) {
   EcommerceApp.sharedPreferences
           .getStringList(EcommerceApp.userCartList)
           .contains(shortInfoAsID)
-      ? Fluttertoast.showToast(msg: "Item is already in Cart")
+      ? Fluttertoast.showToast(msg: "Item is already in Cart.")
       : addItemToCart(shortInfoAsID, context);
 }
 
@@ -354,14 +366,18 @@ addItemToCart(String shortInfoAsID, BuildContext context) {
   List tempCartList =
       EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
   tempCartList.add(shortInfoAsID);
+
   EcommerceApp.firestore
       .collection(EcommerceApp.collectionUser)
       .document(EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
-      .updateData({EcommerceApp.userCartList: tempCartList}).then((v) {
-    Fluttertoast.showToast(msg: "Item Added to Cart Successfully");
+      .updateData({
+    EcommerceApp.userCartList: tempCartList,
+  }).then((v) {
+    Fluttertoast.showToast(msg: "Item Added to Cart Successfully.");
 
     EcommerceApp.sharedPreferences
         .setStringList(EcommerceApp.userCartList, tempCartList);
+
     Provider.of<CartItemCounter>(context, listen: false).displayResult();
   });
 }

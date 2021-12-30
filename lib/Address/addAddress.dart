@@ -1,88 +1,138 @@
 import 'package:e_shop/Config/config.dart';
-import 'package:e_shop/Counters/cartitemcounter.dart';
-import 'package:e_shop/Store/cart.dart';
+import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Widgets/customAppBar.dart';
 import 'package:e_shop/Models/address.dart';
 import 'package:e_shop/Widgets/myDrawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AddAddress extends StatelessWidget {
+  final formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final cName = TextEditingController();
+  final cPhoneNumber = TextEditingController();
+  final cFlatHomeNumber = TextEditingController();
+  final cCity = TextEditingController();
+  final cState = TextEditingController();
+  final cPinCode = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [Colors.blueAccent, Colors.black12],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(0.0, 0.0),
-              stops: [0.0, 0.0],
-              tileMode: TileMode.clamp,
-            ),
-          ),
+    return SafeArea(
+      child: Scaffold(
+        key: scaffoldKey,
+        appBar: MyAppBar(),
+        drawer: MyDrawer(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            if (formKey.currentState.validate()) {
+              final model = AddressModel(
+                name: cName.text.trim(),
+                state: cState.text.trim(),
+                pincode: cPinCode.text,
+                phoneNumber: cPhoneNumber.text,
+                flatNumber: cFlatHomeNumber.text,
+                city: cCity.text.trim(),
+              ).toJson();
+
+              //add to firestore
+              EcommerceApp.firestore
+                  .collection(EcommerceApp.collectionUser)
+                  .document(EcommerceApp.sharedPreferences
+                      .getString(EcommerceApp.userUID))
+                  .collection(EcommerceApp.subCollectionAddress)
+                  .document(DateTime.now().millisecondsSinceEpoch.toString())
+                  .setData(model)
+                  .then((value) {
+                final snack =
+                    SnackBar(content: Text("New  added successfully."));
+                scaffoldKey.currentState.showSnackBar(snack);
+                FocusScope.of(context).requestFocus(FocusNode());
+                formKey.currentState.reset();
+              });
+
+              Route route = MaterialPageRoute(builder: (c) => StoreHome());
+              Navigator.pushReplacement(context, route);
+            }
+          },
+          label: Text("Done"),
+          backgroundColor: Colors.green,
+          icon: Icon(Icons.check),
         ),
-        title: Text(
-          "82 Cafe",
-          style: TextStyle(
-              fontSize: 55.0, color: Colors.white, fontFamily: "Signatra"),
-        ),
-        centerTitle: true,
-        actions: [
-          Stack(
+        body: SingleChildScrollView(
+          child: Column(
             children: [
-              IconButton(
-                onPressed: () {
-                  Route route = MaterialPageRoute(builder: (c) => CartPage());
-                  Navigator.pushReplacement(context, route);
-                },
-                icon: Icon(Icons.shopping_cart, color: Colors.white),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Add",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0),
+                  ),
+                ),
               ),
-              Positioned(
-                child: Stack(
+              Form(
+                key: formKey,
+                child: Column(
                   children: [
-                    Icon(
-                      Icons.brightness_1,
-                      size: 20.0,
-                      color: Colors.green,
+                    MyTextField(
+                      hint: "ชื่อเครื่องดื่ม",
+                      controller: cName,
                     ),
-                    Positioned(
-                      top: 3.0,
-                      bottom: 4.0,
-                      left: 3.0,
-                      child: Consumer<CartItemCounter>(
-                        builder: (context, counter, _) {
-                          return Text(
-                            (EcommerceApp.sharedPreferences
-                                        .getStringList(
-                                            EcommerceApp.userCartList)
-                                        .length -
-                                    1)
-                                .toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500),
-                          );
-                        },
-                      ),
-                    )
+                    MyTextField(
+                      hint: "เลขโต้ะ",
+                      controller: cPhoneNumber,
+                    ),
+                    MyTextField(
+                      hint: "ชื่อผู้ซื้อ",
+                      controller: cFlatHomeNumber,
+                    ),
+                    MyTextField(
+                      hint: "ส่วนลด",
+                      controller: cCity,
+                    ),
+                    MyTextField(
+                      hint: "สิทธ์นักศึกษา",
+                      controller: cState,
+                    ),
+                    MyTextField(
+                      hint: "สะสมแต้ม",
+                      controller: cPinCode,
+                    ),
                   ],
                 ),
               ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
-      drawer: MyDrawer(),
     );
   }
 }
 
 class MyTextField extends StatelessWidget {
+  final String hint;
+  final TextEditingController controller;
+
+  MyTextField({
+    Key key,
+    this.hint,
+    this.controller,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Padding();
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: controller,
+        decoration: InputDecoration.collapsed(hintText: hint),
+        validator: (val) => val.isEmpty ? "Field can not be empty." : null,
+      ),
+    );
   }
 }

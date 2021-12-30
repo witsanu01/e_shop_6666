@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Config/config.dart';
@@ -22,10 +20,10 @@ class _MyOrdersState extends State<MyOrders> {
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blueAccent, Colors.black12],
+                colors: [Colors.green, Colors.lightGreenAccent],
                 begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
-                stops: [0.0, 0.0],
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
             ),
@@ -37,13 +35,13 @@ class _MyOrdersState extends State<MyOrders> {
           ),
           actions: [
             IconButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
               icon: Icon(
                 Icons.arrow_drop_down_circle,
                 color: Colors.white,
               ),
+              onPressed: () {
+                SystemNavigator.pop();
+              },
             ),
           ],
         ),

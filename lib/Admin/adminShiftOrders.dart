@@ -21,10 +21,10 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blueAccent, Colors.black12],
+                colors: [Colors.pink, Colors.lightGreenAccent],
                 begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
-                stops: [0.0, 0.0],
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
             ),
@@ -36,13 +36,13 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           ),
           actions: [
             IconButton(
-              onPressed: () {
-                SystemNavigator.pop();
-              },
               icon: Icon(
                 Icons.arrow_drop_down_circle,
                 color: Colors.white,
               ),
+              onPressed: () {
+                SystemNavigator.pop();
+              },
             ),
           ],
         ),
@@ -67,8 +67,10 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                                   data: snap.data.documents,
                                   orderID:
                                       snapshot.data.documents[index].documentID,
-                                  orderby: snap
-                                      .data.documents[index].data['orderby'],
+                                  orderBy: snapshot
+                                      .data.documents[index].data["orderBy"],
+                                  addressID: snapshot
+                                      .data.documents[index].data["addressID"],
                                 )
                               : Center(
                                   child: circularProgress(),

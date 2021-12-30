@@ -22,8 +22,6 @@ dependencies:
   path_provider: 
   image:
   intl:
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

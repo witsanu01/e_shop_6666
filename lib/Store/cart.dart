@@ -26,23 +26,28 @@ class _CartPageState extends State<CartPage> {
     super.initState();
 
     totalAmount = 0;
-    Provider.of<TotalAmount>(context, listen: false).dispaly(0);
+    Provider.of<TotalAmount>(context, listen: false).display(0);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           if (EcommerceApp.sharedPreferences
                   .getStringList(EcommerceApp.userCartList)
                   .length ==
               1) {
-            Fluttertoast.showToast(msg: "your cart is emtry");
+            Fluttertoast.showToast(msg: "your Cart is empty.");
           } else {
             Route route = MaterialPageRoute(
                 builder: (c) => Address(totalAmount: totalAmount));
+            Navigator.pushReplacement(context, route);
           }
         },
+        label: Text("Check "),
+        backgroundColor: Colors.green,
+        icon: Icon(Icons.navigate_next),
       ),
       appBar: MyAppBar(),
       drawer: MyDrawer(),
@@ -50,14 +55,14 @@ class _CartPageState extends State<CartPage> {
         slivers: [
           SliverToBoxAdapter(
             child: Consumer2<TotalAmount, CartItemCounter>(
-              builder: (context, amountProvider, CartProvider, c) {
+              builder: (context, amountProvider, cartProvider, c) {
                 return Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Center(
-                    child: CartProvider.count == 0
+                    child: cartProvider.count == 0
                         ? Container()
                         : Text(
-                            "Total Price ฿ ${amountProvider.totalAmount.toString()}",
+                            "Total Price: ฿ ${amountProvider.totalAmount.toString()}",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20.0,
@@ -83,30 +88,36 @@ class _CartPageState extends State<CartPage> {
                       ),
                     )
                   : snapshot.data.documents.length == 0
-                      ? beginbuildingCart()
+                      ? beginBuildingCart()
                       : SliverList(
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               ItemModel model = ItemModel.fromJson(
                                   snapshot.data.documents[index].data);
+
                               if (index == 0) {
                                 totalAmount = 0;
                                 totalAmount = model.price + totalAmount;
                               } else {
                                 totalAmount = model.price + totalAmount;
                               }
+
                               if (snapshot.data.documents.length - 1 == index) {
                                 WidgetsBinding.instance
                                     .addPostFrameCallback((t) {
                                   Provider.of<TotalAmount>(context,
                                           listen: false)
-                                      .dispaly(totalAmount);
+                                      .display(totalAmount);
                                 });
                               }
+
                               return sourceInfo(model, context,
                                   removeCartFunction: () =>
                                       removeItemFromUserCart(model.shortInfo));
                             },
+                            childCount: snapshot.hasData
+                                ? snapshot.data.documents.length
+                                : 0,
                           ),
                         );
             },
@@ -116,7 +127,7 @@ class _CartPageState extends State<CartPage> {
     );
   }
 
-  beginbuildingCart() {
+  beginBuildingCart() {
     return SliverToBoxAdapter(
       child: Card(
         color: Theme.of(context).primaryColor.withOpacity(0.5),
@@ -129,8 +140,8 @@ class _CartPageState extends State<CartPage> {
                 Icons.insert_emoticon,
                 color: Colors.white,
               ),
-              Text("Cart is empty"),
-              Text("Start add item to your Cart"),
+              Text("Cart is empty."),
+              Text("Start adding items to your Cart."),
             ],
           ),
         ),
@@ -142,15 +153,19 @@ class _CartPageState extends State<CartPage> {
     List tempCartList =
         EcommerceApp.sharedPreferences.getStringList(EcommerceApp.userCartList);
     tempCartList.remove(shortInfoAsId);
+
     EcommerceApp.firestore
         .collection(EcommerceApp.collectionUser)
         .document(
             EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
-        .updateData({EcommerceApp.userCartList: tempCartList}).then((v) {
-      Fluttertoast.showToast(msg: "Item removed to Cart Successfully");
+        .updateData({
+      EcommerceApp.userCartList: tempCartList,
+    }).then((v) {
+      Fluttertoast.showToast(msg: "Item Removed Successfully.");
 
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempCartList);
+
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
 
       totalAmount = 0;

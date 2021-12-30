@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/adminShiftOrders.dart';
+import 'package:e_shop/Authentication/authenication.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/main.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as ImD;
@@ -27,6 +28,7 @@ class _UploadPageState extends State<UploadPage>
       TextEditingController();
   String productId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
+
   @override
   Widget build(BuildContext context) {
     return file == null
@@ -40,10 +42,10 @@ class _UploadPageState extends State<UploadPage>
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
-              colors: [Colors.blueAccent, Colors.black12],
+              colors: [Colors.blue],
               begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(0.0, 0.0),
-              stops: [0.0, 0.0],
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
               tileMode: TileMode.clamp,
             ),
           ),
@@ -60,39 +62,33 @@ class _UploadPageState extends State<UploadPage>
         ),
         actions: [
           FlatButton(
-            onPressed: () {
-              Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-              Navigator.pushReplacement(context, route);
-            },
             child: Text(
               "Logout",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            onPressed: () {
+              Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+              Navigator.pushReplacement(context, route);
+            },
           ),
         ],
-        title: Text(
-          "82 Cafe",
-          style: TextStyle(
-              fontSize: 55.0, color: Colors.white, fontFamily: "Signatra"),
-        ),
-        centerTitle: true,
       ),
-      body: getAdminHomeScreenbody(),
+      body: getAdminHomeScreenBody(),
     );
   }
 
-  getAdminHomeScreenbody() {
+  getAdminHomeScreenBody() {
     return Container(
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
-          colors: [Colors.blueAccent, Colors.black12],
+          colors: [Colors.white, Colors.white],
           begin: const FractionalOffset(0.0, 0.0),
-          end: const FractionalOffset(0.0, 0.0),
-          stops: [0.0, 0.0],
+          end: const FractionalOffset(1.0, 0.0),
+          stops: [0.0, 1.0],
           tileMode: TileMode.clamp,
         ),
       ),
@@ -102,7 +98,7 @@ class _UploadPageState extends State<UploadPage>
           children: [
             Icon(
               Icons.shop_two,
-              color: Colors.white,
+              color: Colors.blue,
               size: 200.0,
             ),
             Padding(
@@ -111,7 +107,7 @@ class _UploadPageState extends State<UploadPage>
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9.0)),
                 child: Text(
-                  "Add New Cafe",
+                  "Add New Items",
                   style: TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
                 color: Colors.green,
@@ -126,64 +122,59 @@ class _UploadPageState extends State<UploadPage>
 
   takeImage(mContext) {
     return showDialog(
-      context: mContext,
-      builder: (con) {
-        return SimpleDialog(
-          title: Text(
-            "Item Image",
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
+        context: mContext,
+        builder: (con) {
+          return SimpleDialog(
+            title: Text(
+              "Item Image",
+              style:
+                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
             ),
-          ),
-          children: [
-            SimpleDialogOption(
-              child: Text(
-                'Capture with camera',
-                style: TextStyle(
-                  color: Colors.green,
-                ),
+            children: [
+              SimpleDialogOption(
+                child: Text("Capture with Camera",
+                    style: TextStyle(
+                      color: Colors.green,
+                    )),
+                onPressed: capturePhotoWithCamera,
               ),
-              onPressed: capturePhotoWithCamera,
-            ),
-            SimpleDialogOption(
-              child: Text(
-                'Select with Gallery',
-                style: TextStyle(
-                  color: Colors.green,
-                ),
+              SimpleDialogOption(
+                child: Text("Select from Gallery",
+                    style: TextStyle(
+                      color: Colors.green,
+                    )),
+                onPressed: pickPhotoFromGallery,
               ),
-              onPressed: pickPhotoFromGallery,
-            ),
-            SimpleDialogOption(
-              child: Text(
-                ' camera',
-                style: TextStyle(
-                  color: Colors.green,
-                ),
+              SimpleDialogOption(
+                child: Text("Cancel",
+                    style: TextStyle(
+                      color: Colors.green,
+                    )),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
+            ],
+          );
+        });
   }
 
   capturePhotoWithCamera() async {
+    Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 680.0, maxWidth: 970.0);
+
     setState(() {
       file = imageFile;
     });
   }
 
   pickPhotoFromGallery() async {
+    Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
     );
+
     setState(() {
       file = imageFile;
     });
@@ -195,10 +186,10 @@ class _UploadPageState extends State<UploadPage>
         flexibleSpace: Container(
           decoration: new BoxDecoration(
             gradient: new LinearGradient(
-              colors: [Colors.blueAccent, Colors.black12],
+              colors: [Colors.green, Colors.lightGreenAccent],
               begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(0.0, 0.0),
-              stops: [0.0, 0.0],
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
               tileMode: TileMode.clamp,
             ),
           ),
@@ -210,20 +201,25 @@ class _UploadPageState extends State<UploadPage>
             ),
             onPressed: clearFormInfo),
         title: Text(
-          "New product",
+          "New Product",
           style: TextStyle(
-              color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           FlatButton(
-              onPressed: uploading ? null : () => uploadImageAndSaveItemInfo(),
-              child: Text(
-                "Add",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold),
-              ))
+            onPressed: uploading ? null : () => uploadImageAndSaveItemInfo(),
+            child: Text(
+              "Add",
+              style: TextStyle(
+                color: Colors.pink,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
       body: ListView(
@@ -247,7 +243,7 @@ class _UploadPageState extends State<UploadPage>
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.blue,
+              color: Colors.green,
             ),
             title: Container(
               width: 250.0,
@@ -263,12 +259,12 @@ class _UploadPageState extends State<UploadPage>
             ),
           ),
           Divider(
-            color: Colors.blue,
+            color: Colors.pink,
           ),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.blue,
+              color: Colors.pink,
             ),
             title: Container(
               width: 250.0,
@@ -276,7 +272,7 @@ class _UploadPageState extends State<UploadPage>
                 style: TextStyle(color: Colors.deepPurpleAccent),
                 controller: _titleTextEditingController,
                 decoration: InputDecoration(
-                  hintText: "titile",
+                  hintText: "Title",
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
@@ -284,12 +280,12 @@ class _UploadPageState extends State<UploadPage>
             ),
           ),
           Divider(
-            color: Colors.blue,
+            color: Colors.pink,
           ),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.blue,
+              color: Colors.pink,
             ),
             title: Container(
               width: 250.0,
@@ -297,7 +293,7 @@ class _UploadPageState extends State<UploadPage>
                 style: TextStyle(color: Colors.deepPurpleAccent),
                 controller: _descriptionTextEditingController,
                 decoration: InputDecoration(
-                  hintText: "description",
+                  hintText: "Description",
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
@@ -305,12 +301,12 @@ class _UploadPageState extends State<UploadPage>
             ),
           ),
           Divider(
-            color: Colors.blue,
+            color: Colors.pink,
           ),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.blue,
+              color: Colors.pink,
             ),
             title: Container(
               width: 250.0,
@@ -319,7 +315,7 @@ class _UploadPageState extends State<UploadPage>
                 style: TextStyle(color: Colors.deepPurpleAccent),
                 controller: _priceTextEditingController,
                 decoration: InputDecoration(
-                  hintText: "price",
+                  hintText: "Price",
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
@@ -327,8 +323,8 @@ class _UploadPageState extends State<UploadPage>
             ),
           ),
           Divider(
-            color: Colors.blue,
-          ),
+            color: Colors.green,
+          )
         ],
       ),
     );
@@ -345,11 +341,13 @@ class _UploadPageState extends State<UploadPage>
   }
 
   uploadImageAndSaveItemInfo() async {
-    String imageDownloadUrl = await uploadItemImage(file);
-    saveItemInfo(imageDownloadUrl);
     setState(() {
       uploading = true;
     });
+
+    String imageDownloadUrl = await uploadItemImage(file);
+
+    saveItemInfo(imageDownloadUrl);
   }
 
   Future<String> uploadItemImage(mFileImage) async {
@@ -362,17 +360,18 @@ class _UploadPageState extends State<UploadPage>
     return downloadUrl;
   }
 
-  saveItemInfo(String DownloadUrl) {
-    final itemRef = Firestore.instance.collection("Item");
-    itemRef.document(productId).setData({
+  saveItemInfo(String downloadUrl) {
+    final itemsRef = Firestore.instance.collection("Item");
+    itemsRef.document(productId).setData({
       "shortInfo": _shortInfoTextEditingController.text.trim(),
-      "longDesciption": _descriptionTextEditingController.text.trim(),
-      "price": int.parse(_priceTextEditingController.text.trim()),
-      "publishedData": DateTime.now(),
-      "thumbnailUrl": DownloadUrl,
+      "longDescription": _descriptionTextEditingController.text.trim(),
+      "price": int.parse(_priceTextEditingController.text),
+      "publishedDate": DateTime.now(),
       "status": "available",
+      "thumbnailUrl": downloadUrl,
       "title": _titleTextEditingController.text.trim(),
     });
+
     setState(() {
       file = null;
       uploading = false;
