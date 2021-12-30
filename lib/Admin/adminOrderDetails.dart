@@ -55,7 +55,7 @@ class AdminOrderDetails extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "€ " +
+                                "฿ " +
                                     dataMap[EcommerceApp.totalAmount]
                                         .toString(),
                                 style: TextStyle(
@@ -85,7 +85,7 @@ class AdminOrderDetails extends StatelessWidget {
                           ),
                           FutureBuilder<QuerySnapshot>(
                             future: EcommerceApp.firestore
-                                .collection("items")
+                                .collection("Item")
                                 .where("shortInfo",
                                     whereIn: dataMap[EcommerceApp.productID])
                                 .getDocuments(),
