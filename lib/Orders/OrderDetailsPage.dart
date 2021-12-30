@@ -13,7 +13,10 @@ String getOrderId = "";
 class OrderDetails extends StatelessWidget {
   final String orderID;
 
-  OrderDetails({Key key, this.orderID}) : super(key: key);
+  OrderDetails({
+    Key key,
+    this.orderID,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

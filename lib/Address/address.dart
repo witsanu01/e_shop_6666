@@ -8,7 +8,6 @@ import 'package:e_shop/Models//address.dart';
 import 'package:e_shop/Counters/changeAddresss.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'addAddress.dart';
 
 class Address extends StatefulWidget {
@@ -21,7 +20,20 @@ class Address extends StatefulWidget {
 class _AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea();
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(),
+        floatingActionButton: FloatingActionButton.extended(
+          label: Text("Promotion"),
+          backgroundColor: Colors.blue,
+          icon: Icon(Icons.add_location),
+          onPressed: () {
+            Route route = MaterialPageRoute(builder: (c) => AddAddress());
+            Navigator.pushReplacement(context, route);
+          },
+        ),
+      ),
+    );
   }
 
   noAddressCard() {
