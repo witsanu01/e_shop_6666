@@ -55,7 +55,7 @@ class OrderDetails extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "€ " +
+                                "฿" +
                                     dataMap[EcommerceApp.totalAmount]
                                         .toString(),
                                 style: TextStyle(

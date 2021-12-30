@@ -104,7 +104,7 @@ class _AddressState extends State<Address> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.add_location,
+              Icons.add,
               color: Colors.white,
             ),
             Text("No shipment address has been saved."),
@@ -198,12 +198,14 @@ class _AddressCardState extends State<AddressCard> {
                             ),
                             Text(widget.model.state),
                           ]),
-                          TableRow(children: [
-                            KeyText(
-                              msg: "สะสมแต้ม",
-                            ),
-                            Text(widget.model.pincode),
-                          ]),
+                          TableRow(
+                            children: [
+                              KeyText(
+                                msg: "สะสมแต้ม",
+                              ),
+                              Text(widget.model.pincode),
+                            ],
+                          ),
                         ],
                       ),
                     ),

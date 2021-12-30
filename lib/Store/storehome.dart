@@ -136,7 +136,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
           MaterialPageRoute(builder: (c) => ProductPage(itemModel: model));
       Navigator.pushReplacement(context, route);
     },
-    splashColor: Colors.pink,
+    splashColor: Colors.green,
     child: Padding(
       padding: EdgeInsets.all(6.0),
       child: Container(
@@ -305,12 +305,12 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                         : IconButton(
                             icon: Icon(
                               Icons.delete,
-                              color: Colors.pinkAccent,
+                              color: Colors.red,
                             ),
                             onPressed: () {
                               removeCartFunction();
-                              Route route = MaterialPageRoute(
-                                  builder: (c) => StoreHome());
+                              Route route =
+                                  MaterialPageRoute(builder: (c) => CartPage());
                               Navigator.pushReplacement(context, route);
                             },
                           ),

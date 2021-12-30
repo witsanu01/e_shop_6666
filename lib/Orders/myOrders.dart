@@ -36,7 +36,7 @@ class _MyOrdersState extends State<MyOrders> {
           actions: [
             IconButton(
               icon: Icon(
-                Icons.arrow_drop_down_circle,
+                Icons.arrow_drop_down_outlined,
                 color: Colors.white,
               ),
               onPressed: () {
