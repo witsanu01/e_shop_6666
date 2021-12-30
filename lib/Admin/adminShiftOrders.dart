@@ -21,7 +21,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.green, Colors.lightGreenAccent],
+                colors: [Colors.blue],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
                 stops: [0.0, 1.0],
@@ -47,12 +47,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: EcommerceApp.firestore
-              .collection(EcommerceApp.collectionUser)
-              .document(EcommerceApp.sharedPreferences
-                  .getString(EcommerceApp.userUID))
-              .collection(EcommerceApp.collectionOrders)
-              .snapshots(),
+          stream: Firestore.instance.collection("orders").snapshots(),
           builder: (c, snapshot) {
             return snapshot.hasData
                 ? ListView.builder(
@@ -67,11 +62,15 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                             .getDocuments(),
                         builder: (c, snap) {
                           return snap.hasData
-                              ? OrderCard(
+                              ? AdminOrderCard(
                                   itemCount: snap.data.documents.length,
                                   data: snap.data.documents,
                                   orderID:
                                       snapshot.data.documents[index].documentID,
+                                  orderBy: snapshot
+                                      .data.documents[index].data["orderBy"],
+                                  addressID: snapshot
+                                      .data.documents[index].data["addressID"],
                                 )
                               : Center(
                                   child: circularProgress(),
