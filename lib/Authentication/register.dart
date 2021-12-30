@@ -92,7 +92,7 @@ class _RegisterState extends State<Register> {
               onPressed: () {
                 uploadAndSaveImage();
               },
-              color: Colors.blueAccent,
+              color: Colors.green,
               child: Text(
                 "Sign Up",
                 style: TextStyle(color: Colors.white),

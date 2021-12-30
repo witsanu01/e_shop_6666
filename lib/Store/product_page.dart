@@ -65,7 +65,7 @@ class _ProductPageState extends State<ProductPage> {
                             height: 10.0,
                           ),
                           Text(
-                            "€ " + widget.itemModel.price.toString(),
+                            "฿ " + widget.itemModel.price.toString(),
                             style: boldTextStyle,
                           ),
                           SizedBox(
