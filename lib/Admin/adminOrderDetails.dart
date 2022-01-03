@@ -178,7 +178,7 @@ class AdminStatusBanner extends StatelessWidget {
             width: 20.0,
           ),
           Text(
-            "Order Shipped " + msg,
+            "Order " + msg,
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -221,7 +221,7 @@ class AdminShippingDetails extends StatelessWidget {
             horizontal: 10.0,
           ),
           child: Text(
-            "Shipment Details:",
+            " Details:",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
