@@ -5,6 +5,7 @@ import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/Widgets/orderCard.dart';
 import 'package:e_shop/Models/address.dart';
+import 'package:e_shop/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,6 +30,45 @@ class AdminOrderDetails extends StatelessWidget {
     getOrderId = orderID;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                colors: [Colors.blue],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
+            ),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.border_color,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Route route = MaterialPageRoute(builder: (c) => UploadPage());
+              Navigator.pushReplacement(context, route);
+            },
+          ),
+          actions: [
+            FlatButton(
+              child: Text(
+                "Logout",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Route route = MaterialPageRoute(builder: (c) => SplashScreen());
+                Navigator.pushReplacement(context, route);
+              },
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
           child: FutureBuilder<DocumentSnapshot>(
             future: EcommerceApp.firestore
@@ -55,7 +95,7 @@ class AdminOrderDetails extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "฿ " +
+                                "€ " +
                                     dataMap[EcommerceApp.totalAmount]
                                         .toString(),
                                 style: TextStyle(
@@ -152,7 +192,7 @@ class AdminStatusBanner extends StatelessWidget {
     return Container(
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
-          colors: [Colors.pink, Colors.lightGreenAccent],
+          colors: [Colors.blue],
           begin: const FractionalOffset(0.0, 0.0),
           end: const FractionalOffset(1.0, 0.0),
           stops: [0.0, 1.0],
@@ -165,7 +205,8 @@ class AdminStatusBanner extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              SystemNavigator.pop();
+              Route route = MaterialPageRoute(builder: (c) => UploadPage());
+              Navigator.pushReplacement(context, route);
             },
             child: Container(
               child: Icon(
@@ -178,7 +219,7 @@ class AdminStatusBanner extends StatelessWidget {
             width: 20.0,
           ),
           Text(
-            "Order " + msg,
+            "Order Shipped " + msg,
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -221,7 +262,7 @@ class AdminShippingDetails extends StatelessWidget {
             horizontal: 10.0,
           ),
           child: Text(
-            " Details:",
+            "Shipment Details:",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -282,7 +323,7 @@ class AdminShippingDetails extends StatelessWidget {
               child: Container(
                 decoration: new BoxDecoration(
                   gradient: new LinearGradient(
-                    colors: [Colors.pink, Colors.lightGreenAccent],
+                    colors: [Colors.green],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],

@@ -3,6 +3,7 @@ import 'package:e_shop/Admin/adminOrderDetails.dart';
 import 'package:e_shop/Models/item.dart';
 import 'package:e_shop/Widgets/orderCard.dart';
 import 'package:flutter/material.dart';
+
 import '../Store/storehome.dart';
 
 int counter = 0;
@@ -42,7 +43,7 @@ class AdminOrderCard extends StatelessWidget {
       child: Container(
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
-            colors: [Colors.green],
+            colors: [Colors.pink, Colors.lightGreenAccent],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(1.0, 0.0),
             stops: [0.0, 1.0],

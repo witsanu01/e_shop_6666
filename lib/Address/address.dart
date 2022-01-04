@@ -25,62 +25,60 @@ class _AddressState extends State<Address> {
     return SafeArea(
       child: Scaffold(
         appBar: MyAppBar(),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Select  ",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Select  ",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
                   ),
                 ),
               ),
-              Consumer<AddressChanger>(builder: (context, address, c) {
-                return Flexible(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: EcommerceApp.firestore
-                        .collection(EcommerceApp.collectionUser)
-                        .document(EcommerceApp.sharedPreferences
-                            .getString(EcommerceApp.userUID))
-                        .collection(EcommerceApp.subCollectionAddress)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      return !snapshot.hasData
-                          ? Center(
-                              child: circularProgress(),
-                            )
-                          : snapshot.data.documents.length == 0
-                              ? noAddressCard()
-                              : ListView.builder(
-                                  itemCount: snapshot.data.documents.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return AddressCard(
-                                      currentIndex: address.count,
-                                      value: index,
-                                      addressId: snapshot
-                                          .data.documents[index].documentID,
-                                      totalAmount: widget.totalAmount,
-                                      model: AddressModel.fromJson(
-                                          snapshot.data.documents[index].data),
-                                    );
-                                  },
-                                );
-                    },
-                  ),
-                );
-              }),
-            ],
-          ),
+            ),
+            Consumer<AddressChanger>(builder: (context, address, c) {
+              return Flexible(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: EcommerceApp.firestore
+                      .collection(EcommerceApp.collectionUser)
+                      .document(EcommerceApp.sharedPreferences
+                          .getString(EcommerceApp.userUID))
+                      .collection(EcommerceApp.subCollectionAddress)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    return !snapshot.hasData
+                        ? Center(
+                            child: circularProgress(),
+                          )
+                        : snapshot.data.documents.length == 0
+                            ? noAddressCard()
+                            : ListView.builder(
+                                itemCount: snapshot.data.documents.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return AddressCard(
+                                    currentIndex: address.count,
+                                    value: index,
+                                    addressId: snapshot
+                                        .data.documents[index].documentID,
+                                    totalAmount: widget.totalAmount,
+                                    model: AddressModel.fromJson(
+                                        snapshot.data.documents[index].data),
+                                  );
+                                },
+                              );
+                  },
+                ),
+              );
+            }),
+          ],
         ),
         floatingActionButton: FloatingActionButton.extended(
           label: Text("Add "),

@@ -40,9 +40,7 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                 Icons.arrow_drop_down_circle,
                 color: Colors.white,
               ),
-              onPressed: () {
-                SystemNavigator.pop();
-              },
+              onPressed: () {},
             ),
           ],
         ),
@@ -69,6 +67,8 @@ class _MyOrdersState extends State<AdminShiftOrders> {
                                       snapshot.data.documents[index].documentID,
                                   orderBy: snapshot
                                       .data.documents[index].data["orderBy"],
+                                  addressID: snapshot
+                                      .data.documents[index].data["addressID"],
                                 )
                               : Center(
                                   child: circularProgress(),
