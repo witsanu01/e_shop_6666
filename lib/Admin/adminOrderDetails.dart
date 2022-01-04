@@ -219,7 +219,7 @@ class AdminStatusBanner extends StatelessWidget {
             width: 20.0,
           ),
           Text(
-            "Order Shipped " + msg,
+            "Order  " + msg,
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -262,7 +262,7 @@ class AdminShippingDetails extends StatelessWidget {
             horizontal: 10.0,
           ),
           child: Text(
-            "Shipment Details:",
+            " Details:",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -334,7 +334,7 @@ class AdminShippingDetails extends StatelessWidget {
                 height: 50.0,
                 child: Center(
                   child: Text(
-                    "Confirm || Parcel Shifted",
+                    "Confirm || ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,
@@ -360,6 +360,6 @@ class AdminShippingDetails extends StatelessWidget {
     Route route = MaterialPageRoute(builder: (c) => UploadPage());
     Navigator.pushReplacement(context, route);
 
-    Fluttertoast.showToast(msg: "Parcel has been Shifted. Confirmed.");
+    Fluttertoast.showToast(msg: " Confirmed.");
   }
 }
