@@ -250,13 +250,13 @@ class ShippingDetails extends StatelessWidget {
                 KeyText(
                   msg: "ชื่อผู้ซื้อ",
                 ),
-                Text(model.flatNumber),
+                Text(model.nameby),
               ]),
               TableRow(children: [
                 KeyText(
                   msg: "ส่วนลด",
                 ),
-                Text(model.city),
+                Text(model.sale),
               ]),
               TableRow(children: [
                 KeyText(

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Models/address.dart';
+import 'package:e_shop/Orders/placeOrderPayment.dart';
 import 'package:e_shop/Widgets/customAppBar.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
-import 'package:e_shop/Widgets/myDrawer.dart';
 import 'package:e_shop/Widgets/wideButton.dart';
 import 'package:e_shop/Counters/changeAddresss.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,6 @@ class _AddressState extends State<Address> {
     return SafeArea(
       child: Scaffold(
         appBar: MyAppBar(),
-        drawer: MyDrawer(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -35,7 +34,7 @@ class _AddressState extends State<Address> {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Select now",
+                  "Select Address",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -82,9 +81,9 @@ class _AddressState extends State<Address> {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          label: Text("Add New Table"),
-          backgroundColor: Colors.green,
-          icon: Icon(Icons.add),
+          label: Text("Add New Address"),
+          backgroundColor: Colors.pink,
+          icon: Icon(Icons.add_location),
           onPressed: () {
             Route route = MaterialPageRoute(builder: (c) => AddAddress());
             Navigator.pushReplacement(context, route);
@@ -104,11 +103,12 @@ class _AddressState extends State<Address> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.add,
+              Icons.add_location,
               color: Colors.white,
             ),
             Text("No shipment address has been saved."),
-            Text("Please add your  so that we can deliever product."),
+            Text(
+                "Please add your shipment Address so that we can deliever product."),
           ],
         ),
       ),
@@ -146,7 +146,7 @@ class _AddressCardState extends State<AddressCard> {
             .displayResult(widget.value);
       },
       child: Card(
-        color: Colors.white12.withOpacity(0.4),
+        color: Colors.pinkAccent.withOpacity(0.4),
         child: Column(
           children: [
             Row(
@@ -154,7 +154,7 @@ class _AddressCardState extends State<AddressCard> {
                 Radio(
                   groupValue: widget.currentIndex,
                   value: widget.value,
-                  activeColor: Colors.green,
+                  activeColor: Colors.pink,
                   onChanged: (val) {
                     Provider.of<AddressChanger>(context, listen: false)
                         .displayResult(val);
@@ -184,13 +184,13 @@ class _AddressCardState extends State<AddressCard> {
                             KeyText(
                               msg: "ชื่อผู้ซื้อ",
                             ),
-                            Text(widget.model.flatNumber),
+                            Text(widget.model.nameby),
                           ]),
                           TableRow(children: [
                             KeyText(
                               msg: "ส่วนลด",
                             ),
-                            Text(widget.model.city),
+                            Text(widget.model.sale),
                           ]),
                           TableRow(children: [
                             KeyText(
@@ -198,14 +198,12 @@ class _AddressCardState extends State<AddressCard> {
                             ),
                             Text(widget.model.state),
                           ]),
-                          TableRow(
-                            children: [
-                              KeyText(
-                                msg: "สะสมแต้ม",
-                              ),
-                              Text(widget.model.pincode),
-                            ],
-                          ),
+                          TableRow(children: [
+                            KeyText(
+                              msg: "สะสมแต้ม",
+                            ),
+                            Text(widget.model.pincode),
+                          ]),
                         ],
                       ),
                     ),

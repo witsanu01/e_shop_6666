@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 20.0,
             ),
             Text(
-              "cafe ShikiRo ",
+              "82 cafe",
               style: TextStyle(color: Colors.black),
             ),
           ],

@@ -1,24 +1,24 @@
 class AddressModel {
   String name;
   String phoneNumber;
-  String flatNumber;
-  String city;
+  String nameby;
+  String sale;
   String state;
   String pincode;
 
   AddressModel(
       {this.name,
-        this.phoneNumber,
-        this.flatNumber,
-        this.city,
-        this.state,
-        this.pincode});
+      this.phoneNumber,
+      this.nameby,
+      this.sale,
+      this.state,
+      this.pincode});
 
   AddressModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     phoneNumber = json['phoneNumber'];
-    flatNumber = json['flatNumber'];
-    city = json['city'];
+    nameby = json['nameby'];
+    sale = json['sale'];
     state = json['state'];
     pincode = json['pincode'];
   }
@@ -27,8 +27,8 @@ class AddressModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['phoneNumber'] = this.phoneNumber;
-    data['flatNumber'] = this.flatNumber;
-    data['city'] = this.city;
+    data['nameby'] = this.nameby;
+    data['sale'] = this.sale;
     data['state'] = this.state;
     data['pincode'] = this.pincode;
     return data;

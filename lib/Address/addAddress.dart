@@ -31,8 +31,8 @@ class AddAddress extends StatelessWidget {
                 state: cState.text.trim(),
                 pincode: cPinCode.text,
                 phoneNumber: cPhoneNumber.text,
-                flatNumber: cFlatHomeNumber.text,
-                city: cCity.text.trim(),
+                nameby: cFlatHomeNumber.text,
+                sale: cCity.text.trim(),
               ).toJson();
 
               //add to firestore
