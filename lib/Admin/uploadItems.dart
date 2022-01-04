@@ -57,7 +57,7 @@ class _UploadPageState extends State<UploadPage>
             color: Colors.white,
           ),
           onPressed: () {
-            Route route = MaterialPageRoute(builder: (c) => CartPage());
+            Route route = MaterialPageRoute(builder: (c) => AdminShiftOrders());
             Navigator.pushReplacement(context, route);
           },
         ),

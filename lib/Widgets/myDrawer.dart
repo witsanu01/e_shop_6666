@@ -2,6 +2,7 @@ import 'package:e_shop/Address/address.dart';
 import 'package:e_shop/Authentication/authenication.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Address/addAddress.dart';
+import 'package:e_shop/Orders/placeOrderPayment.dart';
 import 'package:e_shop/Store/Search.dart';
 import 'package:e_shop/Store/cart.dart';
 import 'package:e_shop/Orders/myOrders.dart';
@@ -147,7 +148,7 @@ class MyDrawer extends StatelessWidget {
                   ),
                   onTap: () {
                     Route route =
-                        MaterialPageRoute(builder: (c) => AddAddress());
+                        MaterialPageRoute(builder: (c) => PaymentPage());
                     Navigator.pushReplacement(context, route);
                   },
                 ),

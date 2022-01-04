@@ -25,65 +25,67 @@ class _AddressState extends State<Address> {
     return SafeArea(
       child: Scaffold(
         appBar: MyAppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Select Address",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "Select  ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Consumer<AddressChanger>(builder: (context, address, c) {
-              return Flexible(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: EcommerceApp.firestore
-                      .collection(EcommerceApp.collectionUser)
-                      .document(EcommerceApp.sharedPreferences
-                          .getString(EcommerceApp.userUID))
-                      .collection(EcommerceApp.subCollectionAddress)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    return !snapshot.hasData
-                        ? Center(
-                            child: circularProgress(),
-                          )
-                        : snapshot.data.documents.length == 0
-                            ? noAddressCard()
-                            : ListView.builder(
-                                itemCount: snapshot.data.documents.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return AddressCard(
-                                    currentIndex: address.count,
-                                    value: index,
-                                    addressId: snapshot
-                                        .data.documents[index].documentID,
-                                    totalAmount: widget.totalAmount,
-                                    model: AddressModel.fromJson(
-                                        snapshot.data.documents[index].data),
-                                  );
-                                },
-                              );
-                  },
-                ),
-              );
-            }),
-          ],
+              Consumer<AddressChanger>(builder: (context, address, c) {
+                return Flexible(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: EcommerceApp.firestore
+                        .collection(EcommerceApp.collectionUser)
+                        .document(EcommerceApp.sharedPreferences
+                            .getString(EcommerceApp.userUID))
+                        .collection(EcommerceApp.subCollectionAddress)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      return !snapshot.hasData
+                          ? Center(
+                              child: circularProgress(),
+                            )
+                          : snapshot.data.documents.length == 0
+                              ? noAddressCard()
+                              : ListView.builder(
+                                  itemCount: snapshot.data.documents.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return AddressCard(
+                                      currentIndex: address.count,
+                                      value: index,
+                                      addressId: snapshot
+                                          .data.documents[index].documentID,
+                                      totalAmount: widget.totalAmount,
+                                      model: AddressModel.fromJson(
+                                          snapshot.data.documents[index].data),
+                                    );
+                                  },
+                                );
+                    },
+                  ),
+                );
+              }),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          label: Text("Add New Address"),
-          backgroundColor: Colors.pink,
-          icon: Icon(Icons.add_location),
+          label: Text("Add "),
+          backgroundColor: Colors.green,
+          icon: Icon(Icons.add),
           onPressed: () {
             Route route = MaterialPageRoute(builder: (c) => AddAddress());
             Navigator.pushReplacement(context, route);
@@ -106,9 +108,8 @@ class _AddressState extends State<Address> {
               Icons.add_location,
               color: Colors.white,
             ),
-            Text("No shipment address has been saved."),
-            Text(
-                "Please add your shipment Address so that we can deliever product."),
+            Text("No has been saved."),
+            Text("Please that we can deliever product."),
           ],
         ),
       ),
@@ -146,7 +147,7 @@ class _AddressCardState extends State<AddressCard> {
             .displayResult(widget.value);
       },
       child: Card(
-        color: Colors.pinkAccent.withOpacity(0.4),
+        color: Colors.blue[50].withOpacity(0.4),
         child: Column(
           children: [
             Row(
@@ -154,7 +155,7 @@ class _AddressCardState extends State<AddressCard> {
                 Radio(
                   groupValue: widget.currentIndex,
                   value: widget.value,
-                  activeColor: Colors.pink,
+                  activeColor: Colors.green,
                   onChanged: (val) {
                     Provider.of<AddressChanger>(context, listen: false)
                         .displayResult(val);
@@ -180,12 +181,12 @@ class _AddressCardState extends State<AddressCard> {
                             ),
                             Text(widget.model.phoneNumber),
                           ]),
-                          TableRow(children: [
-                            KeyText(
-                              msg: "ชื่อผู้ซื้อ",
-                            ),
-                            Text(widget.model.nameby),
-                          ]),
+                          //   TableRow(children: [
+                          //     KeyText(
+                          //       msg: "ชื่อผู้ซื้อ",
+                          //     ),
+                          //     Text(widget.model.nameby),
+                          //   ]),
                           TableRow(children: [
                             KeyText(
                               msg: "ส่วนลด",
