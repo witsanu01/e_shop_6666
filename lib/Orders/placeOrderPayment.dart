@@ -68,7 +68,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   addOrderDetails() {
     writeOrderDetailsForUser({
-      EcommerceApp.addressID: widget.addressId,
+      EcommerceApp.saleID: widget.addressId,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -79,7 +79,7 @@ class _PaymentPageState extends State<PaymentPage> {
     });
 
     writeOrderDetailsForAdmin({
-      EcommerceApp.addressID: widget.addressId,
+      EcommerceApp.saleID: widget.addressId,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences

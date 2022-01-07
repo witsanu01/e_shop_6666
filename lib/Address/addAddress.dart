@@ -40,7 +40,7 @@ class AddAddress extends StatelessWidget {
                   .collection(EcommerceApp.collectionUser)
                   .document(EcommerceApp.sharedPreferences
                       .getString(EcommerceApp.userUID))
-                  .collection(EcommerceApp.subCollectionAddress)
+                  .collection(EcommerceApp.subCollection)
                   .document(DateTime.now().millisecondsSinceEpoch.toString())
                   .setData(model)
                   .then((value) {

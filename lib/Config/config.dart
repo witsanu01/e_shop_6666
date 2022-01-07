@@ -13,7 +13,7 @@ class EcommerceApp {
   static String collectionUser = "users";
   static String collectionOrders = "orders";
   static String userCartList = 'userCart';
-  static String subCollectionAddress = 'userAddress';
+  static String subCollection = 'usersale';
 
   static final String userName = 'name';
   static final String userEmail = 'email';
@@ -21,7 +21,7 @@ class EcommerceApp {
   static final String userUID = 'uid';
   static final String userAvatarUrl = 'url';
 
-  static final String addressID = 'addressID';
+  static final String saleID = 'saleID';
   static final String totalAmount = 'totalAmount';
   static final String productID = 'productIDs';
   static final String paymentDetails = 'paymentDetails';

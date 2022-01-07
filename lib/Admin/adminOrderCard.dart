@@ -11,7 +11,7 @@ class AdminOrderCard extends StatelessWidget {
   final int itemCount;
   final List<DocumentSnapshot> data;
   final String orderID;
-  final String addressID;
+  final String saleID;
   final String orderBy;
 
   AdminOrderCard({
@@ -19,7 +19,7 @@ class AdminOrderCard extends StatelessWidget {
     this.itemCount,
     this.data,
     this.orderID,
-    this.addressID,
+    this.saleID,
     this.orderBy,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class AdminOrderCard extends StatelessWidget {
               builder: (c) => AdminOrderDetails(
                     orderID: orderID,
                     orderBy: orderBy,
-                    addressID: addressID,
+                    saleID: saleID,
                   ));
         }
       },

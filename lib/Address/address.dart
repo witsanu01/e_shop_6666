@@ -50,7 +50,7 @@ class _AddressState extends State<Address> {
                       .collection(EcommerceApp.collectionUser)
                       .document(EcommerceApp.sharedPreferences
                           .getString(EcommerceApp.userUID))
-                      .collection(EcommerceApp.subCollectionAddress)
+                      .collection(EcommerceApp.subCollection)
                       .snapshots(),
                   builder: (context, snapshot) {
                     return !snapshot.hasData
@@ -85,7 +85,7 @@ class _AddressState extends State<Address> {
           backgroundColor: Colors.green,
           icon: Icon(Icons.add),
           onPressed: () {
-            Route route = MaterialPageRoute(builder: (c) => AddAddress());
+            Route route = MaterialPageRoute(builder: (c) => PaymentPage());
             Navigator.pushReplacement(context, route);
           },
         ),

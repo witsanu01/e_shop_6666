@@ -15,13 +15,13 @@ String getOrderId = "";
 class AdminOrderDetails extends StatelessWidget {
   final String orderID;
   final String orderBy;
-  final String addressID;
+  final String saleID;
 
   AdminOrderDetails({
     Key key,
     this.orderID,
     this.orderBy,
-    this.addressID,
+    this.saleID,
   }) : super(key: key);
 
   @override
@@ -108,8 +108,8 @@ class AdminOrderDetails extends StatelessWidget {
                               future: EcommerceApp.firestore
                                   .collection(EcommerceApp.collectionUser)
                                   .document(orderBy)
-                                  .collection(EcommerceApp.subCollectionAddress)
-                                  .document(addressID)
+                                  .collection(EcommerceApp.subCollection)
+                                  .document(saleID)
                                   .get(),
                               builder: (c, snap) {
                                 return snap.hasData
