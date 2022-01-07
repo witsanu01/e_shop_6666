@@ -1,4 +1,5 @@
 import 'package:e_shop/Config/config.dart';
+import 'package:e_shop/Orders/placeOrderPayment.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Widgets/customAppBar.dart';
 import 'package:e_shop/Models/address.dart';
@@ -51,7 +52,7 @@ class AddAddress extends StatelessWidget {
                 formKey.currentState.reset();
               });
 
-              Route route = MaterialPageRoute(builder: (c) => StoreHome());
+              Route route = MaterialPageRoute(builder: (c) => PaymentPage());
               Navigator.pushReplacement(context, route);
             }
           },

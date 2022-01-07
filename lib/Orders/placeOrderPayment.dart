@@ -30,7 +30,7 @@ class _PaymentPageState extends State<PaymentPage> {
       child: Container(
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
-            colors: [Colors.pink, Colors.lightGreenAccent],
+            colors: [Colors.blue, Colors.lightGreenAccent],
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(1.0, 0.0),
             stops: [0.0, 1.0],
@@ -43,19 +43,19 @@ class _PaymentPageState extends State<PaymentPage> {
             children: [
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Image.asset("images/cash.png"),
+                child: Image.asset("images/logoApp.jpg"),
               ),
               SizedBox(
                 height: 10.0,
               ),
               FlatButton(
-                color: Colors.pinkAccent,
+                color: Colors.blue,
                 textColor: Colors.white,
-                padding: EdgeInsets.all(8.0),
-                splashColor: Colors.deepOrange,
+                padding: EdgeInsets.all(6.0),
+                splashColor: Colors.blue,
                 onPressed: () => addOrderDetails(),
                 child: Text(
-                  "Place Order",
+                  "รายการที่สั่ง",
                   style: TextStyle(fontSize: 30.0),
                 ),
               ),

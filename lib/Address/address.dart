@@ -85,7 +85,7 @@ class _AddressState extends State<Address> {
           backgroundColor: Colors.green,
           icon: Icon(Icons.add),
           onPressed: () {
-            Route route = MaterialPageRoute(builder: (c) => PaymentPage());
+            Route route = MaterialPageRoute(builder: (c) => AddAddress());
             Navigator.pushReplacement(context, route);
           },
         ),
