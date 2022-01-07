@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/adminOrderCard.dart';
+import 'package:e_shop/Admin/adminOrderDetails.dart';
+import 'package:e_shop/Admin/uploadItems.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,11 +19,10 @@ class _MyOrdersState extends State<AdminShiftOrders> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
           flexibleSpace: Container(
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blue],
+                colors: [Colors.blue, Colors.lightGreenAccent],
                 begin: const FractionalOffset(0.0, 0.0),
                 end: const FractionalOffset(1.0, 0.0),
                 stops: [0.0, 1.0],
@@ -37,10 +38,13 @@ class _MyOrdersState extends State<AdminShiftOrders> {
           actions: [
             IconButton(
               icon: Icon(
-                Icons.arrow_drop_down_circle,
+                Icons.home,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Route route = MaterialPageRoute(builder: (c) => UploadPage());
+                Navigator.pushReplacement(context, route);
+              },
             ),
           ],
         ),

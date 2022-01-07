@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shop/Admin/adminOrderDetails.dart';
 import 'package:e_shop/Admin/adminShiftOrders.dart';
 import 'package:e_shop/Authentication/authenication.dart';
 import 'package:e_shop/Store/cart.dart';
@@ -40,14 +41,16 @@ class _UploadPageState extends State<UploadPage>
   displayAdminHomeScreen() {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [Colors.blue],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp,
+        flexibleSpace: Center(
+          child: Container(
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                colors: [Colors.blue],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+              ),
             ),
           ),
         ),
