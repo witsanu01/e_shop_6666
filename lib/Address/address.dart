@@ -103,7 +103,7 @@ class _AddressState extends State<Address> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.add_location,
+              Icons.add,
               color: Colors.white,
             ),
             Text("No has been saved."),
