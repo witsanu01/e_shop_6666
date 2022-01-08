@@ -13,15 +13,17 @@ class AdminOrderCard extends StatelessWidget {
   final String orderID;
   final String saleID;
   final String orderBy;
+  final String productIDs;
 
-  AdminOrderCard({
-    Key key,
-    this.itemCount,
-    this.data,
-    this.orderID,
-    this.saleID,
-    this.orderBy,
-  }) : super(key: key);
+  AdminOrderCard(
+      {Key key,
+      this.itemCount,
+      this.data,
+      this.orderID,
+      this.saleID,
+      this.orderBy,
+      this.productIDs})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

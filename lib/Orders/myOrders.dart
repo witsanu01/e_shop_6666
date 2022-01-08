@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shop/Store/storehome.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:flutter/services.dart';
@@ -36,11 +37,12 @@ class _MyOrdersState extends State<MyOrders> {
           actions: [
             IconButton(
               icon: Icon(
-                Icons.arrow_drop_down_outlined,
+                Icons.home,
                 color: Colors.white,
               ),
               onPressed: () {
-                SystemNavigator.pop();
+                Route route = MaterialPageRoute(builder: (c) => StoreHome());
+                Navigator.pushReplacement(context, route);
               },
             ),
           ],

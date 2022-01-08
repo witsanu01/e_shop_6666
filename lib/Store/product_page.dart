@@ -47,12 +47,11 @@ class _ProductPageState extends State<ProductPage> {
               children: [
                 IconButton(
                   icon: Icon(
-                    Icons.home,
+                    Icons.add_shopping_cart,
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => StoreHome());
+                    Route route = MaterialPageRoute(builder: (c) => CartPage());
                     Navigator.pushReplacement(context, route);
                   },
                 ),

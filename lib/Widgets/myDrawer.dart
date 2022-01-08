@@ -1,14 +1,11 @@
-import 'package:e_shop/Address/address.dart';
 import 'package:e_shop/Authentication/authenication.dart';
 import 'package:e_shop/Config/config.dart';
-import 'package:e_shop/Address/addAddress.dart';
-import 'package:e_shop/Orders/OrderDetailsPage.dart';
 import 'package:e_shop/Store/Search.dart';
 import 'package:e_shop/Store/cart.dart';
 import 'package:e_shop/Orders/myOrders.dart';
 import 'package:e_shop/Store/storehome.dart';
+import 'package:e_shop/Widgets/wideButton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -20,10 +17,10 @@ class MyDrawer extends StatelessWidget {
             padding: EdgeInsets.only(top: 25.0, bottom: 10.0),
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blueAccent, Colors.black12],
+                colors: [Colors.blue, Colors.blueAccent],
                 begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
-                stops: [0.0, 0.0],
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
             ),
@@ -50,7 +47,7 @@ class MyDrawer extends StatelessWidget {
                   EcommerceApp.sharedPreferences
                       .getString(EcommerceApp.userName),
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 35.0,
                       fontFamily: "Signatra"),
                 ),
@@ -64,10 +61,10 @@ class MyDrawer extends StatelessWidget {
             padding: EdgeInsets.only(top: 1.0),
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
-                colors: [Colors.blueAccent, Colors.black12],
+                colors: [Colors.blue, Colors.blueAccent],
                 begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.0),
-                stops: [0.0, 0.0],
+                end: const FractionalOffset(1.0, 0.0),
+                stops: [0.0, 1.0],
                 tileMode: TileMode.clamp,
               ),
             ),
@@ -76,11 +73,11 @@ class MyDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.home,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   title: Text(
                     "Home",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Route route =
@@ -93,6 +90,20 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                   thickness: 6.0,
                 ),
+                ListTile(
+                  leading: Icon(
+                    Icons.reorder,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    "My Orders",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Route route = MaterialPageRoute(builder: (c) => MyOrders());
+                    Navigator.pushReplacement(context, route);
+                  },
+                ),
                 Divider(
                   height: 10.0,
                   color: Colors.white,
@@ -100,12 +111,12 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.add_shopping_cart_sharp,
-                    color: Colors.black,
+                    Icons.shopping_cart,
+                    color: Colors.white,
                   ),
                   title: Text(
                     "My Cart",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Route route = MaterialPageRoute(builder: (c) => CartPage());
@@ -120,11 +131,11 @@ class MyDrawer extends StatelessWidget {
                 ListTile(
                   leading: Icon(
                     Icons.search,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   title: Text(
                     "Search",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Route route =
@@ -137,18 +148,23 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                   thickness: 6.0,
                 ),
+                Divider(
+                  height: 10.0,
+                  color: Colors.white,
+                  thickness: 6.0,
+                ),
                 ListTile(
                   leading: Icon(
-                    Icons.where_to_vote,
-                    color: Colors.black,
+                    Icons.gif,
+                    color: Colors.white,
                   ),
                   title: Text(
                     "Promotion",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     Route route =
-                        MaterialPageRoute(builder: (c) => OrderDetails());
+                        MaterialPageRoute(builder: (c) => WideButton());
                     Navigator.pushReplacement(context, route);
                   },
                 ),
@@ -159,12 +175,12 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.logout,
-                    color: Colors.black,
+                    Icons.exit_to_app,
+                    color: Colors.white,
                   ),
                   title: Text(
-                    "Log out",
-                    style: TextStyle(color: Colors.black),
+                    "Logout",
+                    style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
                     EcommerceApp.auth.signOut().then((c) {

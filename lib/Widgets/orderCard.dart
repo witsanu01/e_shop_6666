@@ -9,8 +9,9 @@ class OrderCard extends StatelessWidget {
   final int itemCount;
   final List<DocumentSnapshot> data;
   final String orderID;
+  final String productIDs;
 
-  OrderCard({Key key, this.itemCount, this.data, this.orderID})
+  OrderCard({Key key, this.itemCount, this.data, this.orderID, this.productIDs})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
