@@ -22,7 +22,8 @@ class WideButton extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Promotion 82cafe",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              fontSize: 55.0, color: Colors.white, fontFamily: "Signatra"),
         ),
         actions: [
           IconButton(
