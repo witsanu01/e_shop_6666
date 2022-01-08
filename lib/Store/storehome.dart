@@ -277,6 +277,18 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                                     color: Colors.grey,
                                   ),
                                 ),
+                                Text(
+                                  "point ",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 16.0),
+                                ),
+                                Text(
+                                  (model.points).toString(),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ],
                             ),
                           ),

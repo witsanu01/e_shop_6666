@@ -141,6 +141,13 @@ class _ProductPageState extends State<ProductPage> {
                           SizedBox(
                             height: 10.0,
                           ),
+                          Text(
+                            "point " + widget.itemModel.points.toString(),
+                            style: boldTextStyle,
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
                         ],
                       ),
                     ),

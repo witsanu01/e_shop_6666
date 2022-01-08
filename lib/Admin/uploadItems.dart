@@ -25,9 +25,11 @@ class _UploadPageState extends State<UploadPage>
   TextEditingController _descriptionTextEditingController =
       TextEditingController();
   TextEditingController _priceTextEditingController = TextEditingController();
+  TextEditingController _pointsTextEditingController = TextEditingController();
   TextEditingController _titleTextEditingController = TextEditingController();
   TextEditingController _shortInfoTextEditingController =
       TextEditingController();
+
   String productId = DateTime.now().millisecondsSinceEpoch.toString();
   bool uploading = false;
 
@@ -216,7 +218,7 @@ class _UploadPageState extends State<UploadPage>
             child: Text(
               "Add",
               style: TextStyle(
-                color: Colors.pink,
+                color: Colors.white,
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -260,13 +262,11 @@ class _UploadPageState extends State<UploadPage>
               ),
             ),
           ),
-          Divider(
-            color: Colors.pink,
-          ),
+          Divider(color: Colors.blue),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.pink,
+              color: Colors.blue,
             ),
             title: Container(
               width: 250.0,
@@ -282,12 +282,12 @@ class _UploadPageState extends State<UploadPage>
             ),
           ),
           Divider(
-            color: Colors.pink,
+            color: Colors.blue,
           ),
           ListTile(
             leading: Icon(
               Icons.perm_device_information,
-              color: Colors.pink,
+              color: Colors.blue,
             ),
             title: Container(
               width: 250.0,
@@ -318,6 +318,28 @@ class _UploadPageState extends State<UploadPage>
                 controller: _priceTextEditingController,
                 decoration: InputDecoration(
                   hintText: "Price",
+                  hintStyle: TextStyle(color: Colors.deepPurpleAccent),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          Divider(
+            color: Colors.green,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.perm_device_information,
+              color: Colors.pink,
+            ),
+            title: Container(
+              width: 250.0,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.deepPurpleAccent),
+                controller: _pointsTextEditingController,
+                decoration: InputDecoration(
+                  hintText: "points",
                   hintStyle: TextStyle(color: Colors.deepPurpleAccent),
                   border: InputBorder.none,
                 ),
@@ -368,6 +390,7 @@ class _UploadPageState extends State<UploadPage>
       "shortInfo": _shortInfoTextEditingController.text.trim(),
       "longDescription": _descriptionTextEditingController.text.trim(),
       "price": int.parse(_priceTextEditingController.text),
+      "points": int.parse(_pointsTextEditingController.text),
       "publishedDate": DateTime.now(),
       "status": "available",
       "thumbnailUrl": downloadUrl,
