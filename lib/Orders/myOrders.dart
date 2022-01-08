@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Store/storehome.dart';
+import 'package:e_shop/Widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +32,7 @@ class _MyOrdersState extends State<MyOrders> {
           ),
           centerTitle: true,
           title: Text(
-            "My Orders",
+            "82 cafe Orders",
             style: TextStyle(color: Colors.white),
           ),
           actions: [
@@ -47,6 +48,7 @@ class _MyOrdersState extends State<MyOrders> {
             ),
           ],
         ),
+        drawer: MyDrawer(),
         body: StreamBuilder<QuerySnapshot>(
           stream: EcommerceApp.firestore
               .collection(EcommerceApp.collectionUser)

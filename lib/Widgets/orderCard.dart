@@ -186,6 +186,23 @@ Widget sourceOrderInfo(ItemModel model, BuildContext context,
                             ),
                           ],
                         ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Point: ",
+                              style: TextStyle(
+                                  fontSize: 10.0, color: Colors.redAccent),
+                            ),
+                            Text(
+                              (model.points).toString(),
+                              style:
+                                  TextStyle(fontSize: 10.0, color: Colors.grey),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),

@@ -236,7 +236,7 @@ Widget sourceInfo(ItemModel model, BuildContext context,
                             child: Row(
                               children: [
                                 Text(
-                                  r"Origional Price: ฿ ",
+                                  "Origional Price: ฿ ",
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.grey,
