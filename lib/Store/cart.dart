@@ -46,7 +46,8 @@ class _CartPageState extends State<CartPage> {
           } else {
             Route route = MaterialPageRoute(
               builder: (c) => PaymentPage(
-                totalAmount: totalPoints,
+                totalAmount: totalAmount,
+                totalPoints: totalPoints,
               ),
             );
             Navigator.pushReplacement(context, route);

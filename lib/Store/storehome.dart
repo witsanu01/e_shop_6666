@@ -26,17 +26,6 @@ class _StoreHomeState extends State<StoreHome> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                colors: [Colors.blue],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 1.0],
-                tileMode: TileMode.clamp,
-              ),
-            ),
-          ),
           title: Text(
             "82 Cafe",
             style: TextStyle(

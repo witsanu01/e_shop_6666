@@ -56,9 +56,9 @@ class OrderDetails extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.all(4.0),
                             child: Align(
-                              alignment: Alignment.centerLeft,
+                              alignment: Alignment.center,
                               child: Text(
-                                "Point:" +
+                                "Pricetotal:฿" +
                                     dataMap[EcommerceApp.totalAmount]
                                         .toString(),
                                 style: TextStyle(
@@ -68,17 +68,21 @@ class OrderDetails extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "฿" +
-                                    dataMap[EcommerceApp.totalPoints]
-                                        .toString(),
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                          FlatButton(
+                            color: Colors.green,
+                            onPressed: () {},
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Point:" +
+                                      dataMap[EcommerceApp.totalPoints]
+                                          .toString(),
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -122,25 +126,25 @@ class OrderDetails extends StatelessWidget {
                           Divider(
                             height: 2.0,
                           ),
-                          FutureBuilder<DocumentSnapshot>(
-                            future: EcommerceApp.firestore
-                                .collection(EcommerceApp.collectionUser)
-                                .document(EcommerceApp.sharedPreferences
-                                    .getString(EcommerceApp.userUID))
-                                .collection(EcommerceApp.subCollection)
-                                .document(dataMap[EcommerceApp.saleID])
-                                .get(),
-                            builder: (c, snap) {
-                              return snap.hasData
-                                  ? ShippingDetails(
-                                      model:
-                                          AddressModel.fromJson(snap.data.data),
-                                    )
-                                  : Center(
-                                      child: circularProgress(),
-                                    );
-                            },
-                          ),
+                          // FutureBuilder<DocumentSnapshot>(
+                          //   future: EcommerceApp.firestore
+                          //       .collection(EcommerceApp.collectionUser)
+                          //       .document(EcommerceApp.sharedPreferences
+                          //           .getString(EcommerceApp.userUID))
+                          //       .collection(EcommerceApp.subCollection)
+                          //       .document(dataMap[EcommerceApp.saleID])
+                          //       .get(),
+                          //   builder: (c, snap) {
+                          //     return snap.hasData
+                          //         ? ShippingDetails(
+                          //             model:
+                          //                 AddressModel.fromJson(snap.data.data),
+                          //           )
+                          //         : Center(
+                          //             child: circularProgress(),
+                          //           );
+                          //   },
+                          // ),
                         ],
                       ),
                     )
@@ -218,130 +222,5 @@ class StatusBanner extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ShippingDetails extends StatelessWidget {
-  final AddressModel model;
-
-  ShippingDetails({Key key, this.model}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 20.0,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.0,
-          ),
-          child: Text(
-            " Details:",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 90.0, vertical: 5.0),
-          width: screenWidth,
-          child: Table(
-            children: [
-              TableRow(children: [
-                KeyText(
-                  msg: "ชื่อเครื่องดื่ม",
-                ),
-                Text(model.name),
-              ]),
-              TableRow(children: [
-                KeyText(
-                  msg: "เลขโต้ะ",
-                ),
-                Text(model.phoneNumber),
-              ]),
-              TableRow(children: [
-                KeyText(
-                  msg: "ชื่อผู้ซื้อ",
-                ),
-                Text(model.nameby),
-              ]),
-              TableRow(children: [
-                KeyText(
-                  msg: "ส่วนลด",
-                ),
-                Text(model.sale),
-              ]),
-              TableRow(children: [
-                KeyText(
-                  msg: "สิทธ์นักศึกษา",
-                ),
-                Text(model.state),
-              ]),
-              TableRow(children: [
-                KeyText(
-                  msg: "สะสมแต้ม",
-                ),
-                Text(model.pincode),
-              ]),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Center(
-            child: InkWell(
-              onTap: () {
-                confirmedUserOrderReceived(context, getOrderId);
-              },
-              child: Container(
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                    colors: [Colors.pink, Colors.lightGreenAccent],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp,
-                  ),
-                ),
-                width: MediaQuery.of(context).size.width - 40.0,
-                height: 50.0,
-                child: Center(
-                  child: Text(
-                    "Confirmed || Items ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  confirmedUserOrderReceived(BuildContext context, String mOrderId) {
-    EcommerceApp.firestore
-        .collection(EcommerceApp.collectionUser)
-        .document(
-            EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID))
-        .collection(EcommerceApp.collectionOrders)
-        .document(mOrderId)
-        .delete();
-
-    getOrderId = "";
-
-    Route route = MaterialPageRoute(builder: (c) => SplashScreen());
-    Navigator.pushReplacement(context, route);
-
-    Fluttertoast.showToast(msg: "Order has been Received. Confirmed.");
   }
 }

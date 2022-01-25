@@ -11,13 +11,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class PaymentPage extends StatefulWidget {
-  final String totalPoint;
+  final double totalPoints;
   final double totalAmount;
+  // final double totalPoint;
 
   PaymentPage({
     Key key,
-    this.totalPoint,
+    this.totalPoints,
     this.totalAmount,
+    // this.totalPoint,
   }) : super(key: key);
 
   @override
@@ -69,7 +71,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   addOrderDetails() {
     writeOrderDetailsForUser({
-      EcommerceApp.totalPoints: widget.totalPoint,
+      EcommerceApp.totalPoints: widget.totalPoints,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -80,7 +82,7 @@ class _PaymentPageState extends State<PaymentPage> {
     });
 
     writeOrderDetailsForAdmin({
-      EcommerceApp.totalPoints: widget.totalPoint,
+      EcommerceApp.totalPoints: widget.totalPoints,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences

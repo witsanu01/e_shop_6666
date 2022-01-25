@@ -45,17 +45,6 @@ class _UploadPageState extends State<UploadPage>
   displayAdminHomeScreen() {
     return Scaffold(
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              colors: [Colors.blue],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: [0.0, 1.0],
-              tileMode: TileMode.clamp,
-            ),
-          ),
-        ),
         leading: IconButton(
           icon: Icon(
             Icons.border_color,

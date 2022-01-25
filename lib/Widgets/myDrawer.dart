@@ -8,6 +8,7 @@ import 'package:e_shop/Widgets/wideButton.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
+  double totalPoints;
   @override
   Widget build(BuildContext context) {
     return Drawer(
