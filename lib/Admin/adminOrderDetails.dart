@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 String getOrderId = "";
 
 class AdminOrderDetails extends StatelessWidget {
+  double totalAmount;
   final String orderID;
   final String orderBy;
   final String saleID;

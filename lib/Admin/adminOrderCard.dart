@@ -28,18 +28,18 @@ class AdminOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Route route;
-        if (counter == 0) {
-          counter = counter + 1;
-          route = MaterialPageRoute(
-              builder: (c) => AdminOrderDetails(
-                    orderID: orderID,
-                    orderBy: orderBy,
-                    saleID: saleID,
-                  ));
-        }
-      },
+      // onTap: () {
+      //   Route route;
+      //   if (counter == 0) {
+      //     counter = counter + 1;
+      //     route = MaterialPageRoute(
+      //         builder: (c) => AdminOrderDetails(
+      //               orderID: orderID,
+      //               orderBy: orderBy,
+      //               saleID: saleID,
+      //             ));
+      //   }
+      // },
       child: Container(
         decoration: new BoxDecoration(
           gradient: new LinearGradient(

@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "Login to you account , ",
+                "82cafe, ",
                 style: TextStyle(color: Colors.black),
               ),
             ),

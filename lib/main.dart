@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Config/config.dart';
+import 'package:e_shop/CountersPoint/cartitemcounter.dart';
+import 'package:e_shop/CountersPoint/totalPoint.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,8 +29,11 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (c) => CartItemCounter()),
         ChangeNotifierProvider(create: (c) => CartItemCounter()),
+        ChangeNotifierProvider(create: (c) => CartItemCounters()),
+        ChangeNotifierProvider(create: (c) => CartItemCounters()),
         ChangeNotifierProvider(create: (c) => AddressChanger()),
         ChangeNotifierProvider(create: (c) => TotalAmount()),
+        ChangeNotifierProvider(create: (c) => TotalPoints()),
       ],
       child: MaterialApp(
           title: 'Cafe82',

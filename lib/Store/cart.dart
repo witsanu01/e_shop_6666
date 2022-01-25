@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Config/config.dart';
-import 'package:e_shop/Address/address.dart';
+import 'package:e_shop/CountersPoint/cartitemcounter.dart';
+import 'package:e_shop/CountersPoint/totalPoint.dart';
+import 'package:e_shop/Orders/placeOrderPayment.dart';
 import 'package:e_shop/Widgets/customAppBar.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/Models/item.dart';
@@ -11,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -20,12 +21,15 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   double totalAmount;
+  double totalPoints;
 
   @override
   void initState() {
     super.initState();
 
     totalAmount = 0;
+    totalPoints = 0;
+    Provider.of<TotalPoints>(context, listen: false).display(0);
     Provider.of<TotalAmount>(context, listen: false).display(0);
   }
 
@@ -41,7 +45,7 @@ class _CartPageState extends State<CartPage> {
             Fluttertoast.showToast(msg: "your Cart is empty.");
           } else {
             Route route = MaterialPageRoute(
-                builder: (c) => Address(totalAmount: totalAmount));
+                builder: (c) => PaymentPage(totalAmount: totalAmount));
             Navigator.pushReplacement(context, route);
           }
         },
@@ -63,6 +67,26 @@ class _CartPageState extends State<CartPage> {
                         ? Container()
                         : Text(
                             "Total Price: ฿ ${amountProvider.totalAmount.toString()}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w500),
+                          ),
+                  ),
+                );
+              },
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Consumer2<TotalPoints, CartItemCounters>(
+              builder: (context, amountProvider, cartProvider, c) {
+                return Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Center(
+                    child: cartProvider.count == 0
+                        ? Container()
+                        : Text(
+                            "Total Point:  ${amountProvider.totaPoints.toString()}",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20.0,
@@ -101,14 +125,34 @@ class _CartPageState extends State<CartPage> {
                               } else {
                                 totalAmount = model.price + totalAmount;
                               }
+                              if (index == 0) {
+                                totalPoints = 0;
+                                totalPoints = model.points + totalPoints;
+                              } else {
+                                totalPoints = model.points + totalPoints;
+                              }
 
                               if (snapshot.data.documents.length - 1 == index) {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((t) {
-                                  Provider.of<TotalAmount>(context,
-                                          listen: false)
-                                      .display(totalAmount);
-                                });
+                                WidgetsBinding.instance.addPostFrameCallback(
+                                  (t) {
+                                    Provider.of<TotalAmount>(context,
+                                            listen: false)
+                                        .display(
+                                      totalAmount,
+                                    );
+                                  },
+                                );
+                              }
+                              if (snapshot.data.documents.length - 1 == index) {
+                                WidgetsBinding.instance.addPostFrameCallback(
+                                  (t) {
+                                    Provider.of<TotalPoints>(context,
+                                            listen: false)
+                                        .display(
+                                      totalPoints,
+                                    );
+                                  },
+                                );
                               }
 
                               return sourceInfo(model, context,
@@ -167,8 +211,10 @@ class _CartPageState extends State<CartPage> {
           .setStringList(EcommerceApp.userCartList, tempCartList);
 
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
+      Provider.of<CartItemCounters>(context, listen: false).displayResult();
 
       totalAmount = 0;
+      totalPoints = 0;
     });
   }
 }

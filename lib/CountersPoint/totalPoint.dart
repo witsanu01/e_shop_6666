@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class TotalPoints extends ChangeNotifier {
-  double _totalPoints = 0;
+  double _totalPoint = 0;
 
-  double get totalPoints => _totalPoints;
+  double get totaPoints => _totalPoint;
 
   display(double no) async {
-    _totalPoints = no;
+    _totalPoint = no;
 
     await Future.delayed(const Duration(milliseconds: 100), () {
       notifyListeners();

@@ -76,7 +76,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Home",
+                    "หน้าหลัก",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -96,7 +96,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "My Orders",
+                    "ประวัตการสั่งซื้อ",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -115,7 +115,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "My Cart",
+                    "ตระกร้าสั่งกาแฟ",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -134,7 +134,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Search",
+                    "ค้นหา",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -159,7 +159,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Promotion",
+                    "โปรโมชั่น",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -179,7 +179,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "Logout",
+                    "ออกจากระบบ",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
