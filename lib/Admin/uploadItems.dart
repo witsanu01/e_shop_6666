@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Admin/adminOrderDetails.dart';
 import 'package:e_shop/Admin/adminShiftOrders.dart';
 import 'package:e_shop/Authentication/authenication.dart';
+import 'package:e_shop/Orders/OrderDetailsPage.dart';
+import 'package:e_shop/Orders/myOrders.dart';
 import 'package:e_shop/Store/cart.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
 import 'package:e_shop/main.dart';
@@ -60,7 +62,7 @@ class _UploadPageState extends State<UploadPage>
             color: Colors.white,
           ),
           onPressed: () {
-            Route route = MaterialPageRoute(builder: (c) => AdminShiftOrders());
+            Route route = MaterialPageRoute(builder: (c) => MyOrders());
             Navigator.pushReplacement(context, route);
           },
         ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Address/address.dart';
+import 'package:e_shop/Admin/uploadItems.dart';
 import 'package:e_shop/Config/config.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Widgets/loadingWidget.dart';
@@ -16,6 +17,7 @@ String getOrderId = "";
 class OrderDetails extends StatelessWidget {
   final String orderID;
   double totalAmount;
+  double totalPoints;
 
   OrderDetails({
     Key key,
@@ -56,8 +58,23 @@ class OrderDetails extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "฿" +
+                                "Point:" +
                                     dataMap[EcommerceApp.totalAmount]
+                                        .toString(),
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "฿" +
+                                    dataMap[EcommerceApp.totalPoints]
                                         .toString(),
                                 style: TextStyle(
                                   fontSize: 20.0,
@@ -167,7 +184,7 @@ class StatusBanner extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Route route = MaterialPageRoute(builder: (c) => StoreHome());
+              Route route = MaterialPageRoute(builder: (c) => UploadPage());
               Navigator.pushReplacement(context, route);
             },
             child: Container(

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_shop/Admin/uploadItems.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
@@ -42,13 +43,12 @@ class _MyOrdersState extends State<MyOrders> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Route route = MaterialPageRoute(builder: (c) => StoreHome());
+                Route route = MaterialPageRoute(builder: (c) => UploadPage());
                 Navigator.pushReplacement(context, route);
               },
             ),
           ],
         ),
-        drawer: MyDrawer(),
         body: StreamBuilder<QuerySnapshot>(
           stream: EcommerceApp.firestore
               .collection(EcommerceApp.collectionUser)

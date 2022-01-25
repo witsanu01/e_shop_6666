@@ -76,7 +76,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "หน้าหลัก",
+                    "Home",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -90,32 +90,32 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                   thickness: 6.0,
                 ),
-                ListTile(
-                  leading: Icon(
-                    Icons.reorder,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "ประวัตการสั่งซื้อ",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    Route route = MaterialPageRoute(builder: (c) => MyOrders());
-                    Navigator.pushReplacement(context, route);
-                  },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
+                // ListTile(
+                //   leading: Icon(
+                //     Icons.reorder,
+                //     color: Colors.white,
+                //   ),
+                //   title: Text(
+                //     "ประวัตการสั่งซื้อ",
+                //     style: TextStyle(color: Colors.white),
+                //   ),
+                //   onTap: () {
+                //     Route route = MaterialPageRoute(builder: (c) => MyOrders());
+                //     Navigator.pushReplacement(context, route);
+                //   },
+                // ),
+                // Divider(
+                //   height: 10.0,
+                //   color: Colors.white,
+                //   thickness: 6.0,
+                // ),
                 ListTile(
                   leading: Icon(
                     Icons.shopping_cart,
                     color: Colors.white,
                   ),
                   title: Text(
-                    "ตระกร้าสั่งกาแฟ",
+                    "cart Order",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -134,7 +134,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "ค้นหา",
+                    "search",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -148,18 +148,13 @@ class MyDrawer extends StatelessWidget {
                   color: Colors.white,
                   thickness: 6.0,
                 ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
-                ),
                 ListTile(
                   leading: Icon(
                     Icons.gif,
                     color: Colors.white,
                   ),
                   title: Text(
-                    "โปรโมชั่น",
+                    "Promotion",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -179,7 +174,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                   title: Text(
-                    "ออกจากระบบ",
+                    "Logout",
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
@@ -189,11 +184,6 @@ class MyDrawer extends StatelessWidget {
                       Navigator.pushReplacement(context, route);
                     });
                   },
-                ),
-                Divider(
-                  height: 10.0,
-                  color: Colors.white,
-                  thickness: 6.0,
                 ),
               ],
             ),

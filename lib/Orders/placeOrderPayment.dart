@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_shop/Config/config.dart';
+import 'package:e_shop/CountersPoint/cartitemcounter.dart';
 import 'package:e_shop/Store/cart.dart';
 import 'package:e_shop/Store/storehome.dart';
 import 'package:e_shop/Counters/cartitemcounter.dart';
@@ -68,7 +69,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   addOrderDetails() {
     writeOrderDetailsForUser({
-      EcommerceApp.saleID: widget.totalPoint,
+      EcommerceApp.totalPoints: widget.totalPoint,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -79,7 +80,7 @@ class _PaymentPageState extends State<PaymentPage> {
     });
 
     writeOrderDetailsForAdmin({
-      EcommerceApp.saleID: widget.totalPoint,
+      EcommerceApp.totalPoints: widget.totalPoint,
       EcommerceApp.totalAmount: widget.totalAmount,
       "orderBy": EcommerceApp.sharedPreferences.getString(EcommerceApp.userUID),
       EcommerceApp.productID: EcommerceApp.sharedPreferences
@@ -106,6 +107,7 @@ class _PaymentPageState extends State<PaymentPage> {
       EcommerceApp.sharedPreferences
           .setStringList(EcommerceApp.userCartList, tempList);
       Provider.of<CartItemCounter>(context, listen: false).displayResult();
+      Provider.of<CartItemCounters>(context, listen: false).displayResult();
     });
 
     Fluttertoast.showToast(
